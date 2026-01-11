@@ -5,37 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clean & Fit Planner</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 20px; }
-        .card { background: white; border-radius: 15px; padding: 20px; margin: 10px auto; max-width: 400px; shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        button { background: #27ae60; color: white; border: none; padding: 15px 30px; border-radius: 25px; cursor: pointer; font-size: 16px; }
-        h1 { color: #2c3e50; }
-        .task { font-size: 1.2em; font-weight: bold; color: #e67e22; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; color: #333; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        .container { max-width: 600px; width: 100%; }
+        .card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #27ae60; }
+        .day-title { font-weight: bold; color: #2980b9; font-size: 1.1em; margin-bottom: 5px; text-transform: uppercase; }
+        .task-line { margin: 5px 0; display: flex; align-items: center; }
+        .emoji { margin-right: 10px; font-size: 1.2em; }
+        button { background: #27ae60; color: white; border: none; padding: 15px 25px; border-radius: 30px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-bottom: 20px; transition: background 0.3s; }
+        button:hover { background: #219150; }
+        .impact { font-size: 0.8em; color: #95a5a6; margin-left: auto; }
     </style>
 </head>
 <body>
 
-    <h1>🚀 Dagelijkse Planner</h1>
+    <h1>📅 Mijn Weekoverzicht</h1>
     
-    <div class="card">
-        <h3>🏠 Huishouden</h3>
-        <p id="house-task" class="task">Klik op de knop voor een taak</p>
+    <div class="container">
+        <button onclick="generateWeek()">Genereer Nieuw Weekschema</button>
+        <div id="week-container">
+            </div>
     </div>
-
-    <div class="card">
-        <h3>🏃 Bewegen</h3>
-        <p id="move-task" class="task">Klik op de knop voor een activiteit</p>
-    </div>
-
-    <button onclick="generateTasks()">Genereer Nieuwe Taken</button>
 
     <script>
-        const houseTasks = ["Badkamer poetsen", "Keukenkastjes uitsoppen", "Koelkast reinigen", "Ramen lappen", "Plinten afnemen", "Deurklinken desinfecteren", "Bed verschonen"];
-        const moveTasks = ["30 min Wandelen", "HIIT Workout", "Yoga & Stretch", "Krachttraining", "Hardlopen", "10x Trap op en neer", "Touwtjespringen"];
+        const data = {
+            "huishouden": [
+                {"taak": "Badkamer grondig reinigen", "impact": 3},
+                {"taak": "Toilet poetsen & ontkalken", "impact": 1},
+                {"taak": "Keukenkastjes uitsoppen", "impact": 3},
+                {"taak": "Koelkast ordenen & afnemen", "impact": 2},
+                {"taak": "Oven/Magnetron reiniging", "impact": 2},
+                {"taak": "Stofzuigen hele huis", "impact": 2},
+                {"taak": "Dweilen alle vloeren", "impact": 2},
+                {"taak": "Ramen lappen", "impact": 3},
+                {"taak": "Beddengoed verschonen", "impact": 2},
+                {"taak": "Plinten afstoffen", "impact": 1},
+                {"taak": "Deurklinken & lichtknoppen", "impact": 1},
+                {"taak": "Afzuigkap vetvrij maken", "impact": 2},
+                {"taak": "Administratie bijwerken", "impact": 2},
+                {"taak": "Planten verzorgen", "impact": 1},
+                {"taak": "Prullenbakken uitsoppen", "impact": 1},
+                {"taak": "Kledingkast uitmesten", "impact": 3},
+                {"taak": "Digitale opruiming", "impact": 1}
+            ],
+            "bewegen": [
+                {"act": "Hardlopen", "type": "Cardio", "impact": 3},
+                {"act": "Yoga sessie", "type": "Flex", "impact": 1},
+                {"act": "Stevig wandelen", "type": "Cardio", "impact": 1},
+                {"act": "Krachttraining", "type": "Kracht", "impact": 3},
+                {"act": "HIIT workout", "type": "Cardio", "impact": 3},
+                {"act": "Zwemmen", "type": "Cardio", "impact": 2},
+                {"act": "Core & Planken", "type": "Kracht", "impact": 2},
+                {"act": "Traplopen (10x)", "type": "Kracht", "impact": 2},
+                {"act": "Mobiliteit & Stretch", "type": "Flex", "impact": 1},
+                {"act": "Touwtjespringen", "type": "Cardio", "impact": 2},
+                {"act": "Schaduwboksen", "type": "Cardio", "impact": 2},
+                {"act": "Fietsen", "type": "Cardio", "impact": 3}
+            ]
+        };
 
-        function generateTasks() {
-            document.getElementById('house-task').innerText = houseTasks[Math.floor(Math.random() * houseTasks.length)];
-            document.getElementById('move-task').innerText = moveTasks[Math.floor(Math.random() * moveTasks.length)];
-        }
-    </script>
-</body>
-</html>
+        const dagen = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"];
+
+        function generateWeek() {
+            const container = document.getElementById('week-container');
+            container.innerHTML
