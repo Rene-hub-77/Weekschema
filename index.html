@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean & Fit Planner</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 20px; }
+        .card { background: white; border-radius: 15px; padding: 20px; margin: 10px auto; max-width: 400px; shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button { background: #27ae60; color: white; border: none; padding: 15px 30px; border-radius: 25px; cursor: pointer; font-size: 16px; }
+        h1 { color: #2c3e50; }
+        .task { font-size: 1.2em; font-weight: bold; color: #e67e22; }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Dagelijkse Planner</h1>
+    
+    <div class="card">
+        <h3>🏠 Huishouden</h3>
+        <p id="house-task" class="task">Klik op de knop voor een taak</p>
+    </div>
+
+    <div class="card">
+        <h3>🏃 Bewegen</h3>
+        <p id="move-task" class="task">Klik op de knop voor een activiteit</p>
+    </div>
+
+    <button onclick="generateTasks()">Genereer Nieuwe Taken</button>
+
+    <script>
+        const houseTasks = ["Badkamer poetsen", "Keukenkastjes uitsoppen", "Koelkast reinigen", "Ramen lappen", "Plinten afnemen", "Deurklinken desinfecteren", "Bed verschonen"];
+        const moveTasks = ["30 min Wandelen", "HIIT Workout", "Yoga & Stretch", "Krachttraining", "Hardlopen", "10x Trap op en neer", "Touwtjespringen"];
+
+        function generateTasks() {
+            document.getElementById('house-task').innerText = houseTasks[Math.floor(Math.random() * houseTasks.length)];
+            document.getElementById('move-task').innerText = moveTasks[Math.floor(Math.random() * moveTasks.length)];
+        }
+    </script>
+</body>
+</html>
